@@ -19,3 +19,14 @@ build/
 
 # Local configuration
 .env
+
+# C++ Build artifacts
+*.exe
+*.o
+*.obj
+
+# Intermediate debug/research files
+diff_*.txt
+debug_file.cpp
+test_regex.cpp
+test.cpp

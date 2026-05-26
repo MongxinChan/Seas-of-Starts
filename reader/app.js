@@ -255,16 +255,68 @@
   });
 
   // ── 键盘导航 ─────────────────────────────────────
+  // 上/下键：丝滑滚动页面；左/右键：切换章节
+  const smoothScroll = {
+    speed: 0,              // 当前滚动速度（px/frame）
+    maxSpeed: 12,           // 最大速度
+    accel: 0.8,             // 加速度
+    decel: 0.88,            // 松开后减速系数
+    direction: 0,           // 1=向下, -1=向上, 0=停止
+    rafId: null,
+    keyHeld: false,
+
+    start(dir) {
+      this.direction = dir;
+      this.keyHeld = true;
+      if (!this.rafId) this.tick();
+    },
+
+    stop() {
+      this.keyHeld = false;
+    },
+
+    tick() {
+      if (this.keyHeld) {
+        // 按住时加速
+        this.speed = Math.min(this.speed + this.accel, this.maxSpeed);
+      } else {
+        // 松开后缓动减速
+        this.speed *= this.decel;
+        if (this.speed < 0.3) {
+          this.speed = 0;
+          this.direction = 0;
+          this.rafId = null;
+          return;
+        }
+      }
+
+      window.scrollBy(0, this.direction * this.speed);
+      this.rafId = requestAnimationFrame(() => this.tick());
+    }
+  };
+
   document.addEventListener('keydown', (e) => {
     // 搜索框聚焦时不响应
     if (document.activeElement === searchInput) return;
 
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!e.repeat) smoothScroll.start(-1);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!e.repeat) smoothScroll.start(1);
+    } else if (e.key === 'ArrowLeft') {
       e.preventDefault();
       navigatePrev();
-    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       navigateNext();
+    }
+  });
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      smoothScroll.stop();
     }
   });
 

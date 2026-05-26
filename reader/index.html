@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星之海洋 · 在线阅读</title>
+  <meta name="description" content="《星之海洋》完本十周年修订版 · 在线阅读">
+  <meta name="theme-color" content="#0a0e1a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>🌌</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 星空背景 -->
+  <div class="starfield"></div>
+  <div class="nebula"></div>
+  <div class="nebula-2"></div>
+
+  <!-- 阅读进度条 -->
+  <div class="progress-bar">
+    <div class="progress-bar__fill" id="progressBar"></div>
+  </div>
+
+  <!-- 顶部栏 -->
+  <header class="header" id="header">
+    <button class="header__menu-btn" id="menuBtn" aria-label="打开目录">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="header__title">
+      <span class="header__title-icon">🌌</span>
+      <span>星之海洋</span>
+    </div>
+
+    <div class="header__chapter-info" id="chapterInfo"></div>
+
+    <div class="header__actions">
+      <button class="header__btn" id="themeBtn" aria-label="切换主题" title="切换亮色/暗色主题">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 布局容器 -->
+  <div class="app">
+    <!-- 侧栏遮罩 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- 侧栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__search">
+        <div class="sidebar__search-wrap">
+          <svg class="sidebar__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" class="sidebar__search-input" id="searchInput" placeholder="搜索章节..." autocomplete="off">
+        </div>
+      </div>
+
+      <nav class="sidebar__toc" id="toc" aria-label="目录"></nav>
+
+      <div class="sidebar__footer" id="sidebarFooter">
+        加载中...
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main" id="main">
+      <div class="reader" id="reader">
+        <div class="loading" id="loading">
+          <div class="loading__spinner"></div>
+          <div class="loading__text">正在加载章节数据...</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

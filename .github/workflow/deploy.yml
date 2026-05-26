@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure CNAME
-        run: echo "loners.site" > ./reader/CNAME
       - uses: actions/upload-pages-artifact@v3
         with:
           path: './reader' 
